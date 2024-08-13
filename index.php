@@ -112,3 +112,21 @@ $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 // } catch (Exception $e) {
 //     die("Post not Deleted: " . $e->getMessage());
 // }
+
+# Search DATA
+$search = '%post%';
+
+try {
+
+    $sql = 'SELECT * FROM posts WHERE title LIKE ?';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$search]);
+    $posts = $stmt->fetchAll();
+    
+    foreach($posts as $post){
+        echo $post->title . '<br>';
+    }
+
+} catch (Exception $e) {
+    die("Search result not found: " . $e->getMessage());
+}
